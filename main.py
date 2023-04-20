@@ -1,4 +1,4 @@
-import copy
+import pickle
 import time
 
 from sudoku import SudokuManager
@@ -12,7 +12,7 @@ def solve(sudoku):
 
     row, col = coordination
     for val in sudoku.get_allowed_vals(row, col):
-        s = copy.deepcopy(sudoku)
+        s = pickle.loads(pickle.dumps(sudoku))  # Deepcopy, but faster!  =)
         s.mark(row, col, val)
         s = solve(s)
         if s != None:
