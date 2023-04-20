@@ -2,6 +2,7 @@ import copy
 import time
 
 from sudoku import SudokuManager
+from utils.cli import CliManager
 from utils.input import InputManager
 
 
@@ -22,21 +23,30 @@ def solve(sudoku):
 
 
 def main():
+    waiting_time = 0.5  # seconds
+
+    c = CliManager()
     i = InputManager()
+    m = i.load(f'input4.txt')
+    puzzle = SudokuManager(m)
 
-    for j in range(1, 9):
-        m = i.load(f'input{j}.txt')
-        s = SudokuManager(m)
+    c.clear()
+    c.print_sudoku(puzzle.to_matrix(), end='\n\n')
+    c.print_txt(f'Solving...')
 
-        tik = time.time()
-        s = solve(s)
-        tok = time.time()
+    tik = time.time()
+    solution = solve(puzzle)
+    tok = time.time()
+    exec_time = tok - tik
 
-        print(
-            f'Sudoku {str(j).zfill(2)} Processing Time = {(tok - tik) * 1000:8,.1f} ms')
+    if exec_time < waiting_time:
+        time.sleep(waiting_time - exec_time)
 
-    # for r in s.to_matrix():
-    #     print('\t'.join(map(str, r)))
+    c.clear()
+    c.print_sudoku_side_by_side(
+        puzzle.to_matrix(), solution.to_matrix(), end='\n\n')
+
+    c.print_txt(f'Processing Time = {exec_time:,.3f} s')
 
 
 if __name__ == '__main__':
