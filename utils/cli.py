@@ -1,0 +1,48 @@
+import os
+import subprocess
+
+
+class CliManager:
+    def __init__(self):
+        self._clear_cmd = 'cls' if os.name == 'nt' else 'clear'
+
+    def clear(self):
+        subprocess.call(self._clear_cmd)
+
+    def print_sudoku(self, matrix, end='\n'):
+        matrix_str = self._generate_sudoku_str(matrix)
+        print(matrix_str, end=end)
+
+    def print_sudoku_side_by_side(self, a, b, delim='\t', end='\n'):
+        a_str = self._generate_sudoku_str(a)
+        b_str = self._generate_sudoku_str(b)
+
+        a_list = a_str.split('\n')
+        b_list = b_str.split('\n')
+
+        final_str = '\n'.join(
+            [f'{x}{delim}{y}' for x, y in zip(a_list, b_list)])
+        print(final_str, end=end)
+
+    def print_txt(self, txt, end='\n'):
+        print(txt, end=end)
+
+    def _generate_sudoku_str(self, matrix):
+        m = len(matrix)
+        n = len(matrix[0])
+
+        # Replace zero values with whitespaces for a
+        # visually better representation of the sudoku table
+        for i in range(m):
+            matrix[i] = [' ' if x == 0 else x for x in matrix[i]]
+
+        matrix_str = '┌' + '┬'.join(['───'] * n) + '┐\n'
+        for i, row in enumerate(matrix):
+            matrix_str += '│' + '│'.join([f' {x} ' for x in row]) + '│\n'
+
+            if i < m-1:
+                matrix_str += '├' + '┼'.join(['───'] * n) + '┤\n'
+            else:
+                matrix_str += '└' + '┴'.join(['───'] * n) + '┘'
+
+        return matrix_str
