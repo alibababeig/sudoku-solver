@@ -5,7 +5,7 @@ class InputManager:
 
     def load(self, file_path):
         with open(file_path, 'r') as f:
-            matrix = []
+            flat_arr = []
             for i in range(9):
                 row = f.readline().split()
 
@@ -20,5 +20,5 @@ class InputManager:
                     else:
                         raise ValueError()
 
-                matrix.append(row)
-        return matrix
+                flat_arr += row
+        return flat_arr
