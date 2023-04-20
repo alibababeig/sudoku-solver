@@ -24,7 +24,7 @@ def solve(sudoku):
 def main():
     i = InputManager()
 
-    for j in range(1, 7):
+    for j in range(1, 9):
         m = i.load(f'input{j}.txt')
         s = SudokuManager(m)
 
@@ -32,7 +32,8 @@ def main():
         s = solve(s)
         tok = time.time()
 
-        print(f'Sudoku #{j} Calculation Time = {(tok - tik) * 1000:8,.1f} ms')
+        print(
+            f'Sudoku {str(j).zfill(2)} Processing Time = {(tok - tik) * 1000:8,.1f} ms')
 
     # for r in s.to_matrix():
     #     print('\t'.join(map(str, r)))
