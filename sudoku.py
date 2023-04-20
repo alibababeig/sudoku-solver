@@ -24,7 +24,7 @@ class SudokuManager:
 
     def get_allowed_vals(self, row, col):
         if self._matrix[row][col] > 0:
-            return self._matrix[row][col]
+            return {self._matrix[row][col]}
 
         used_vals = set()
         for i in range(9):
