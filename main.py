@@ -1,4 +1,4 @@
-import pickle
+import copy
 import time
 
 from sudoku import SudokuManager
@@ -12,7 +12,7 @@ def solve(sudoku):
 
     row, col = coordination
     for val in sudoku.get_allowed_vals(row, col):
-        s = pickle.loads(pickle.dumps(sudoku))  # Deepcopy, but faster!  =)
+        s = copy.deepcopy(sudoku)
         s.mark(row, col, val)
         s = solve(s)
         if s != None:
@@ -32,7 +32,7 @@ def main():
         s = solve(s)
         tok = time.time()
 
-        print(f'Execution Time = {(tok - tik) * 1000:,.0f} ms')
+        print(f'Sudoku #{j} Calculation Time = {(tok - tik) * 1000:8,.1f} ms')
 
     # for r in s.to_matrix():
     #     print('\t'.join(map(str, r)))
