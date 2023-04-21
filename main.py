@@ -23,7 +23,7 @@ def solve(sudoku):
 
 
 def main():
-    waiting_time = 0.5  # seconds
+    waiting_time = 1  # seconds
 
     c = CliManager()
     i = InputManager()
@@ -31,6 +31,7 @@ def main():
     puzzle = SudokuManager(m)
 
     c.clear()
+    c.print_txt('\n               Puzzle')
     c.print_sudoku(puzzle.to_matrix(), end='\n\n')
     c.print_txt(f'Solving...')
 
@@ -43,8 +44,10 @@ def main():
         time.sleep(waiting_time - exec_time)
 
     c.clear()
+    c.print_txt('\n               Puzzle               \t\t'
+                '              Solution')
     c.print_sudoku_side_by_side(
-        puzzle.to_matrix(), solution.to_matrix(), end='\n\n')
+        puzzle.to_matrix(), solution.to_matrix(), delim='\t\t', end='\n\n')
 
     c.print_txt(f'Processing Time = {exec_time:,.3f} s')
 
