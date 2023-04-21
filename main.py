@@ -1,34 +1,36 @@
-import copy
+import argparse
 import time
 
+from sudoku import solve
 from sudoku import SudokuManager
 from utils.cli import CliManager
 from utils.input import InputManager
 
 
-def solve(sudoku):
-    coordination = sudoku.find_an_empty_cell()
-    if coordination == None:
-        return sudoku
-
-    row, col = coordination
-    for val in sudoku.get_allowed_vals(row, col):
-        s = copy.deepcopy(sudoku)
-        s.mark(row, col, val)
-        s = solve(s)
-        if s != None:
-            return s
-
-    return None
-
-
 def main():
     waiting_time = 1  # seconds
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-i", "--input", required=True,
+        help='Path to the file containing the Sudoku puzzle layout')
+    args = parser.parse_args()
+
     c = CliManager()
     i = InputManager()
-    m = i.load('./sample_inputs/input4.txt')
+    try:
+        m = i.load(args.input)
+    except FileNotFoundError:
+        c.print_txt(f'Could not find the input file at "{args.input}".')
+        exit(1)
+    except ValueError:
+        c.print_txt(f'The provided input file does not have a valid format.')
+        exit(1)
+
     puzzle = SudokuManager(m)
+    if not puzzle.is_valid():
+        c.print_txt(f'The provided Sudoku puzzle is not valid.')
+        exit(1)
 
     c.clear()
     c.print_txt('\n               Puzzle')
@@ -43,11 +45,15 @@ def main():
     if exec_time < waiting_time:
         time.sleep(waiting_time - exec_time)
 
-    c.clear()
-    c.print_txt('\n               Puzzle                \t\t'
-                '              Solution')
-    c.print_sudoku_side_by_side(
-        puzzle.to_matrix(), solution.to_matrix(), delim='\t\t', end='\n\n')
+    if solution == None:
+        c.print_txt('Could not find a solution. '
+                    'Are you sure that the puzzle is solvable?')
+    else:
+        c.clear()
+        c.print_txt('\n               Puzzle                \t\t'
+                    '              Solution')
+        c.print_sudoku_side_by_side(
+            puzzle.to_matrix(), solution.to_matrix(), delim='\t\t', end='\n\n')
 
     c.print_txt(f'Processing Time = {exec_time:,.3f} s')
 
