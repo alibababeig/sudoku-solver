@@ -36,13 +36,22 @@ class CliManager:
         for i in range(m):
             matrix[i] = [' ' if x == 0 else x for x in matrix[i]]
 
-        matrix_str = '┌' + '┬'.join(['───'] * n) + '┐\n'
+        matrix_str = '┏━━━┯━━━┯━━━┳━━━┯━━━┯━━━┳━━━┯━━━┯━━━┓\n'
         for i, row in enumerate(matrix):
-            matrix_str += '│' + '│'.join([f' {x} ' for x in row]) + '│\n'
+            matrix_str += self._generate_sudoku_row_str(row) + '\n'
 
-            if i < m-1:
-                matrix_str += '├' + '┼'.join(['───'] * n) + '┤\n'
+            if i == m - 1:  # End of the Sudoku table
+                s = '┗━━━┷━━━┷━━━┻━━━┷━━━┷━━━┻━━━┷━━━┷━━━┛'
             else:
-                matrix_str += '└' + '┴'.join(['───'] * n) + '┘'
+                if i % 3 == 2:  # Bold horizontal line
+                    s = '┣━━━┿━━━┿━━━╋━━━┿━━━┿━━━╋━━━┿━━━┿━━━┫\n'
+                else:  # Regular horizontal line
+                    s = '┠───┼───┼───╂───┼───┼───╂───┼───┼───┨\n'
+
+            matrix_str += s
 
         return matrix_str
+
+    def _generate_sudoku_row_str(self, row):
+        row_str = '┃' + '│'.join([f' {x} ' for x in row]) + '┃'
+        return row_str[:12] + '┃' + row_str[13:24] + '┃' + row_str[25:]
