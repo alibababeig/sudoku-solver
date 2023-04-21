@@ -27,7 +27,7 @@ def main():
 
     c = CliManager()
     i = InputManager()
-    m = i.load(f'input4.txt')
+    m = i.load('./sample_inputs/input4.txt')
     puzzle = SudokuManager(m)
 
     c.clear()
@@ -44,7 +44,7 @@ def main():
         time.sleep(waiting_time - exec_time)
 
     c.clear()
-    c.print_txt('\n               Puzzle               \t\t'
+    c.print_txt('\n               Puzzle                \t\t'
                 '              Solution')
     c.print_sudoku_side_by_side(
         puzzle.to_matrix(), solution.to_matrix(), delim='\t\t', end='\n\n')
