@@ -1,8 +1,8 @@
 import argparse
 import time
 
-from sudoku import solve
-from sudoku import SudokuManager
+from engine.sudoku import solve
+from engine.sudoku import SudokuManager
 from utils.cli import CliManager
 from utils.input import InputManager
 
