@@ -1,15 +1,9 @@
-<a name="readme-top"></a>
-
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 This is a simple Sudoku solver written in Python as a side project and purely out of boredom!
 
 The Sudoku solver utilizes a backtracking approach to find the correct values for each cell of the Sudoku table. Since the solver is written entirely in Python 3 and without the help of any external dependencies, you shouldn't need to install anything (other than a Python 3.6+) in order to use it.
-
-</br>
 
 
 
@@ -28,8 +22,6 @@ python main.py --input <path-to-input-file>
 
 where `<path-to-input-file>` is (either absolute or relative) path to a file containing the Sudoku puzzle layout. 
 
-</br>
-
 
 
 <!-- SAMPLE SUDOKU PUZZLE -->
@@ -42,8 +34,57 @@ As an example, you may use the following command to solve the 3rd sample Sudoku 
 python main.py -i ./sample_inputs/input3.txt
 ```
 
-</br>
+After running the above command, you should see the visual representation of the Sudoku puzzle on your screen:
+```
+               Puzzle
+┏━━━┯━━━┯━━━┳━━━┯━━━┯━━━┳━━━┯━━━┯━━━┓
+┃   │ 2 │   ┃ 6 │   │ 8 ┃   │   │   ┃
+┠───┼───┼───╂───┼───┼───╂───┼───┼───┨
+┃ 5 │ 8 │   ┃   │   │ 9 ┃ 7 │   │   ┃
+┠───┼───┼───╂───┼───┼───╂───┼───┼───┨
+┃   │   │   ┃   │ 4 │   ┃   │   │   ┃
+┣━━━┿━━━┿━━━╋━━━┿━━━┿━━━╋━━━┿━━━┿━━━┫
+┃ 3 │ 7 │   ┃   │   │   ┃ 5 │   │   ┃
+┠───┼───┼───╂───┼───┼───╂───┼───┼───┨
+┃ 6 │   │   ┃   │   │   ┃   │   │ 4 ┃
+┠───┼───┼───╂───┼───┼───╂───┼───┼───┨
+┃   │   │ 8 ┃   │   │   ┃   │ 1 │ 3 ┃
+┣━━━┿━━━┿━━━╋━━━┿━━━┿━━━╋━━━┿━━━┿━━━┫
+┃   │   │   ┃   │ 2 │   ┃   │   │   ┃
+┠───┼───┼───╂───┼───┼───╂───┼───┼───┨
+┃   │   │ 9 ┃ 8 │   │   ┃   │ 3 │ 6 ┃
+┠───┼───┼───╂───┼───┼───╂───┼───┼───┨
+┃   │   │   ┃ 3 │   │ 6 ┃   │ 9 │   ┃
+┗━━━┷━━━┷━━━┻━━━┷━━━┷━━━┻━━━┷━━━┷━━━┛
 
+Solving...
+```
+
+and just a few moments later, the solution for the Sudoku puzzle should pop up:
+```
+               Puzzle                                    Solution
+┏━━━┯━━━┯━━━┳━━━┯━━━┯━━━┳━━━┯━━━┯━━━┓      ┏━━━┯━━━┯━━━┳━━━┯━━━┯━━━┳━━━┯━━━┯━━━┓
+┃   │ 2 │   ┃ 6 │   │ 8 ┃   │   │   ┃      ┃ 1 │ 2 │ 3 ┃ 6 │ 7 │ 8 ┃ 9 │ 4 │ 5 ┃
+┠───┼───┼───╂───┼───┼───╂───┼───┼───┨      ┠───┼───┼───╂───┼───┼───╂───┼───┼───┨
+┃ 5 │ 8 │   ┃   │   │ 9 ┃ 7 │   │   ┃      ┃ 5 │ 8 │ 4 ┃ 2 │ 3 │ 9 ┃ 7 │ 6 │ 1 ┃
+┠───┼───┼───╂───┼───┼───╂───┼───┼───┨      ┠───┼───┼───╂───┼───┼───╂───┼───┼───┨
+┃   │   │   ┃   │ 4 │   ┃   │   │   ┃      ┃ 9 │ 6 │ 7 ┃ 1 │ 4 │ 5 ┃ 3 │ 2 │ 8 ┃
+┣━━━┿━━━┿━━━╋━━━┿━━━┿━━━╋━━━┿━━━┿━━━┫      ┣━━━┿━━━┿━━━╋━━━┿━━━┿━━━╋━━━┿━━━┿━━━┫
+┃ 3 │ 7 │   ┃   │   │   ┃ 5 │   │   ┃      ┃ 3 │ 7 │ 2 ┃ 4 │ 6 │ 1 ┃ 5 │ 8 │ 9 ┃
+┠───┼───┼───╂───┼───┼───╂───┼───┼───┨      ┠───┼───┼───╂───┼───┼───╂───┼───┼───┨
+┃ 6 │   │   ┃   │   │   ┃   │   │ 4 ┃      ┃ 6 │ 9 │ 1 ┃ 5 │ 8 │ 3 ┃ 2 │ 7 │ 4 ┃
+┠───┼───┼───╂───┼───┼───╂───┼───┼───┨      ┠───┼───┼───╂───┼───┼───╂───┼───┼───┨
+┃   │   │ 8 ┃   │   │   ┃   │ 1 │ 3 ┃      ┃ 4 │ 5 │ 8 ┃ 7 │ 9 │ 2 ┃ 6 │ 1 │ 3 ┃
+┣━━━┿━━━┿━━━╋━━━┿━━━┿━━━╋━━━┿━━━┿━━━┫      ┣━━━┿━━━┿━━━╋━━━┿━━━┿━━━╋━━━┿━━━┿━━━┫
+┃   │   │   ┃   │ 2 │   ┃   │   │   ┃      ┃ 8 │ 3 │ 6 ┃ 9 │ 2 │ 4 ┃ 1 │ 5 │ 7 ┃
+┠───┼───┼───╂───┼───┼───╂───┼───┼───┨      ┠───┼───┼───╂───┼───┼───╂───┼───┼───┨
+┃   │   │ 9 ┃ 8 │   │   ┃   │ 3 │ 6 ┃      ┃ 2 │ 1 │ 9 ┃ 8 │ 5 │ 7 ┃ 4 │ 3 │ 6 ┃
+┠───┼───┼───╂───┼───┼───╂───┼───┼───┨      ┠───┼───┼───╂───┼───┼───╂───┼───┼───┨
+┃   │   │   ┃ 3 │   │ 6 ┃   │ 9 │   ┃      ┃ 7 │ 4 │ 5 ┃ 3 │ 1 │ 6 ┃ 8 │ 9 │ 2 ┃
+┗━━━┷━━━┷━━━┻━━━┷━━━┷━━━┻━━━┷━━━┷━━━┛      ┗━━━┷━━━┷━━━┻━━━┷━━━┷━━━┻━━━┷━━━┷━━━┛
+
+Processing Time = 0.007 s
+```
 
 
 <!-- CUSTOM SUDOKU PUZZLE -->
@@ -68,8 +109,6 @@ In the following example you can see 9 lines, each containing 9 tab-seperated va
 After creating and saving the file, use the previously mentioned syntax to solve the puzzle.
 
 <b>Note.</b> _As mentioned earler, this Sudoko solver utilizes a backtracking algorithm. Backtracking algorithms are known to be exponential in terms of time complexity, so it is possible to deliberately engineer a Sudoku puzzle, for which you will have to wait as long as a few minutes before the puzzle is solved._
-
-</br>
 
 
 
