@@ -90,7 +90,7 @@ Processing Time = 0.007 s
 <!-- CUSTOM SUDOKU PUZZLE -->
 ## Solving a Custom Sudoku Puzzle
 
-For solving a custom Sudoku puzzle create a text file with 9 lines, each representing a row of the Sudoku table. In each line, put 9 white-space-seperated valid values. Allowed values are digits 1 to 9 (for known Sudoku cells) and " - " hyphen (for unknown Sudoku cells).
+For solving a custom Sudoku puzzle create a text file with 9 lines, each representing a row of the Sudoku table. In each line, put 9 white-space-seperated valid values. Allowed values are digits 1 to 9 (for known Sudoku cells) and "-" hyphen (for unknown Sudoku cells).
 
 In the following example you can see 9 lines, each containing 9 tab-seperated values, represeting a valid Sudoku puzzle for the solver:
 
