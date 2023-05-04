@@ -1,3 +1,8 @@
+<!-- PROJECT SHIELDS -->
+[![MIT License][license-shield]][license-url]
+
+
+
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
@@ -116,3 +121,6 @@ After creating and saving the file, use the previously mentioned syntax to solve
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
+
+[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-url]: https://github.com/alibababeig/sudoku-solver/blob/main/LICENSE
